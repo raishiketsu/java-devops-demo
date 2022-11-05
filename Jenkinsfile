@@ -13,6 +13,8 @@ pipeline {
                 echo "Build"
                 echo "$hello"
                 echo "$world"
+                sh 'pwd && ls -alh'
+                sh 'printenv'
             }
         }
         stage('Test'){
