@@ -57,14 +57,13 @@ pipeline {
                 echo "Report"
             }
         }
-
-        post {
-            failure {
-                echo "failure.... $currentBuild.result"
-            }
-            success {
-                echo "success.... $currentBuild.result"
-            }
+    }
+    post {
+        failure {
+            echo "failure.... $currentBuild.result"
+        }
+        success {
+            echo "success.... $currentBuild.result"
         }
     }
 }
