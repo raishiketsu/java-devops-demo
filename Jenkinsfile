@@ -60,7 +60,7 @@ pipeline {
                     //groovy
                     def where = "${DEPLOY_WHERE}"
 
-                    if (where == "bj-01"){
+                    if (where == "Alibaba Cloud"){
                         withCredentials([usernamePassword(credentialsId: 'alicloud-docker-repo', passwordVariable: 'ali_pwd', usernameVariable: 'ali_user')]) {
                             sh "docker login -u ${ali_user} -p ${ali_pwd} rai-hub-registry.ap-northeast-1.cr.aliyuncs.com"
                         }
