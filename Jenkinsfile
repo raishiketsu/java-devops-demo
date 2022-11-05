@@ -19,7 +19,6 @@ pipeline {
         stage('Build') {
             agent {
                 docker 'maven:3-alpine'
-                //args '-v /var/jenkins_home/host/maven/.m2:/root/.m2'
                 args '-v maven-repo:/root/.m2'
             }
             steps { 
