@@ -18,8 +18,7 @@ pipeline {
         }        
         stage('Build') {
             agent {
-                docker 'maven:3-alpine'
-                args '-v maven-repo:/root/.m2'
+                docker 'maven:3-alpine' args '-v maven-repo:/root/.m2'
             }
             steps { 
                 sh 'pwd && ls -alh'
