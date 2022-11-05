@@ -59,7 +59,7 @@ pipeline {
                     sh "docker login -u ${ali_user} -p ${ali_pwd} rai-hub-registry.ap-northeast-1.cr.aliyuncs.com"
                 }
                 sh "docker tag java-devops-demo rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
-                sh "push rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
+                sh "docker push rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
             }
         }
         stage('Depoloy-Staging') {
