@@ -23,6 +23,7 @@ pipeline {
             steps { 
                 sh 'pwd && ls -alh'
                 sh 'mvn -v'
+                sh 'mvn clean package -Dmaven.test.skip=true'
             }
         }
         stage('Test'){
