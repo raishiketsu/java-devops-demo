@@ -56,7 +56,7 @@ pipeline {
              }
             steps {
                 echo "Push Image"
-                sh "docker login -u ${ALICLOUD_SECRTE_USER} -p ${ALICLOUD_SECRTE_PSW} rai-hub-registry.ap-northeast-1.cr.aliyuncs.com"
+                sh "docker login -u ${ALICLOUD_SECRTE_USR} -p ${ALICLOUD_SECRTE_PSW} rai-hub-registry.ap-northeast-1.cr.aliyuncs.com"
                 sh "tag java-devops-demo rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
                 sh "push rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
             }
