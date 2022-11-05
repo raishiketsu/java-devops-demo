@@ -54,7 +54,7 @@ pipeline {
         }
         stage('Report') {
             steps {
-                echo "Report"
+                echo "Report Send Mail"
             }
         }
     }
