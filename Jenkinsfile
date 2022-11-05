@@ -19,11 +19,13 @@ pipeline {
         stage('Build') {
             agent {
                 docker 'maven:3-alpine'
+                //args '-v /var/jenkins_home/host/maven/.m2:/root/.m2'
+                args '-v maven-repo:/root/.m2'
             }
             steps { 
                 sh 'pwd && ls -alh'
                 sh 'mvn -v'
-                sh 'mvn clean package -Dmaven.test.skip=true'
+                sh 'mvn clean package -s "/var/jenkins_home/appconfig/maven/settings.xml" -Dmaven.test.skip=true'
             }
         }
         stage('Test'){
