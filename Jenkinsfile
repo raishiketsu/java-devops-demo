@@ -51,7 +51,7 @@ pipeline {
                  ok "Yes"
                  parameters {
                      string(name: 'APP_VER', defaultValue: 'v1.0', description: 'Image Version')
-                     choice choices: ['AWS', 'Azure', 'AlibabaCloud', 'GoogleCloud', 'DockerHub', 'harbor'], description: 'Image repo', name: 'DEPLOY_WHERE'
+                     choice choices: ['AWS', 'Azure', 'AlibabaCloud', 'GoogleCloud'], description: 'Image repo', name: 'DEPLOY_WHERE'
                  }
              }
             steps {
@@ -66,7 +66,11 @@ pipeline {
                         }
                         sh "docker tag java-devops-demo rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
                         sh "docker push rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
-                    } else {
+                    } else if (where == "AWS"){
+                        echo "Not Set"
+                    } else if (where == "Azure"){
+                        echo "Not Set"
+                    } else if (where == "GoogleCloud"){
                         echo "Not Set"
                     }
                 }
