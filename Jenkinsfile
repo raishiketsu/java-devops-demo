@@ -2,13 +2,13 @@ pipeline {
     agent any 
 
     environment {
-        hello = "rai"
-        world = "123456"
+        GLOBAL_WS = "${WORKSPACE}"
     }
 
     stages {
         stage('Check') { 
             steps { 
+                echo "Check"
                 sh 'printenv'
                 sh 'java -version'
                 sh 'git --version'
@@ -16,7 +16,7 @@ pipeline {
                 sh 'pwd && ls -alh'
             }
         }        
-        stage('Build') {
+        stage('Compile') {
             agent {
                 docker {
                     image 'maven:3-alpine'
@@ -24,9 +24,12 @@ pipeline {
                 }
             }
             steps { 
+                echo "Compile"
                 sh 'pwd && ls -alh'
                 sh 'mvn -v'
-                sh 'mvn clean package -s "/var/jenkins_home/appconfig/maven/settings.xml" -Dmaven.test.skip=true'
+                sh 'echo ${WORKSPACE}'
+                sh 'echo ${GLOBAL_WS}'
+                sh 'cd ${GLOBAL_WS} && mvn clean package -s "/var/jenkins_home/appconfig/maven/settings.xml" -Dmaven.test.skip=true'
             }
         }
         stage('Test'){
@@ -34,7 +37,15 @@ pipeline {
                 echo "Test"
             }
         }
-        stage('Deploy') {
+        stage('Build') {
+            steps {
+                echo "Build"
+                sh 'docker version'
+                sh 'pwd && ls -alh'
+                sh 'docker build -t java-devops-demo .'
+            }
+        }
+        stage('Depoloy') {
             steps {
                 echo "Deploy"
             }
