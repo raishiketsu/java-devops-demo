@@ -51,15 +51,23 @@ pipeline {
                  ok "Yes"
                  parameters {
                      string(name: 'APP_VER', defaultValue: 'v1.0', description: 'Image Version')
+                     choice choices: ['AWS', 'Azure', 'Alibaba Cloud', 'Google Cloud', 'Docker hub', 'harbor'], description: 'Image repo', name: 'DEPLOY_WHERE'
                  }
              }
             steps {
                 echo "Push Image"
-                withCredentials([usernamePassword(credentialsId: 'alicloud-docker-repo', passwordVariable: 'ali_pwd', usernameVariable: 'ali_user')]) {
-                    sh "docker login -u ${ali_user} -p ${ali_pwd} rai-hub-registry.ap-northeast-1.cr.aliyuncs.com"
+                script {
+                    //groovy
+                    def where = "${DEPLOY_WHERE}"
+
+                    if (where == "bj-01"){
+                        withCredentials([usernamePassword(credentialsId: 'alicloud-docker-repo', passwordVariable: 'ali_pwd', usernameVariable: 'ali_user')]) {
+                            sh "docker login -u ${ali_user} -p ${ali_pwd} rai-hub-registry.ap-northeast-1.cr.aliyuncs.com"
+                        }
+                        sh "docker tag java-devops-demo rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
+                        sh "docker push rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
+                    }
                 }
-                sh "docker tag java-devops-demo rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
-                sh "docker push rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
             }
         }
         stage('Depoloy-Staging') {
