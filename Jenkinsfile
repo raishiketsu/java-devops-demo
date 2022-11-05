@@ -52,5 +52,19 @@ pipeline {
                 sh 'docker run -d -p 8888:8080 --name java-devops-demo java-devops-demo'
             }
         }
+        stage('Report') {
+            steps {
+                echo "Report"
+            }
+        }
+
+        post {
+            failure {
+                echo "failure.... $currentBuild.result"
+            }
+            success {
+                echo "success.... $currentBuild.result"
+            }
+        }
     }
 }
