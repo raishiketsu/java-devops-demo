@@ -19,8 +19,6 @@ pipeline {
         stage('Build') {
             agent {
                 docker 'maven:3-alpine'
-                //args 是指定 docker run 的所有指令
-                //args '-v /var/jenkins_home/maven/.m2:/root/.m2'
             }
             steps { 
                 sh 'pwd && ls -alh'
