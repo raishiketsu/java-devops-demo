@@ -48,7 +48,7 @@ pipeline {
         stage('Depoloy') {
             steps {
                 echo "Deploy Artifact"
-                sh 'decker rm -f java-devops-demo'
+                sh 'docker rm -f java-devops-demo'
                 sh 'docker run -d -p 8888:8080 --name java-devops-demo java-devops-demo'
             }
         }
