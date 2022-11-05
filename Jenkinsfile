@@ -58,7 +58,7 @@ pipeline {
                 echo "Push Image"
                 script {
                     //groovy
-                    if (${DEPLOY_WHERE} == "Alibaba Cloud"){
+                    if (${DEPLOY_WHERE} == "AlibabaCloud"){
                         echo "Not Set"
                         withCredentials([usernamePassword(credentialsId: 'alicloud-docker-repo', passwordVariable: 'ali_pwd', usernameVariable: 'ali_user')]) {
                             sh "docker login -u ${ali_user} -p ${ali_pwd} rai-hub-registry.ap-northeast-1.cr.aliyuncs.com"
