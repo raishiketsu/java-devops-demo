@@ -56,7 +56,21 @@ pipeline {
              }
             steps {
                 echo "Push Image"
+                script {
+                    //groovy
+                    def where = "${DEPLOY_WHERE}"
 
+                    if (where == "Alibaba Cloud"){
+                        echo "Not Set"
+
+                    } else if (where == "AWS"){
+                        echo "Not Set"
+                    } else if (where == "Azure"){
+                        echo "Not Set"
+                    } else if (where == "GoogleCloud"){
+                        echo "Not Set"
+                    }
+                }
             }
         }
         stage('Depoloy-Staging') {
