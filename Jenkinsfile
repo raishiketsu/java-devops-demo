@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         GLOBAL_WS = "${WORKSPACE}"
-        ALICLOUD_SECRTE = credentials("alicloud-docker-repo")
     }
 
     stages {
@@ -56,8 +55,10 @@ pipeline {
              }
             steps {
                 echo "Push Image"
-                sh "docker login -u ${ALICLOUD_SECRTE_USR} -p ${ALICLOUD_SECRTE_PSW} rai-hub-registry.ap-northeast-1.cr.aliyuncs.com"
-                sh "tag java-devops-demo rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
+                withCredentials([usernamePassword(credentialsId: 'alicloud-docker-repo', passwordVariable: 'ali_pwd', usernameVariable: 'ali_user')]) {
+                    sh "docker login -u ${ali_user} -p ${ali_pwd} rai-hub-registry.ap-northeast-1.cr.aliyuncs.com"
+                }
+                sh "docker tag java-devops-demo rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
                 sh "push rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
             }
         }
