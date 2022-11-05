@@ -51,7 +51,7 @@ pipeline {
                  ok "Yes"
                  parameters {
                      string(name: 'APP_VER', defaultValue: 'v1.0', description: 'Image Version')
-                     choice choices: ['AWS', 'Azure', 'Alibaba Cloud', 'Google Cloud', 'Docker hub', 'harbor'], description: 'Image repo', name: 'DEPLOY_WHERE'
+                     choice choices: ['AWS', 'Azure', 'AlibabaCloud', 'GoogleCloud', 'DockerHub', 'harbor'], description: 'Image repo', name: 'DEPLOY_WHERE'
                  }
              }
             steps {
