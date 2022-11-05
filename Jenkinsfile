@@ -66,6 +66,8 @@ pipeline {
                         }
                         sh "docker tag java-devops-demo rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
                         sh "docker push rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
+                    } else {
+                        echo "Not Set"
                     }
                 }
             }
