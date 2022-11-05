@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         GLOBAL_WS = "${WORKSPACE}"
+        ALICLOUD_SECRTE = credentials("alicloud-docker-repo")
     }
 
     stages {
@@ -45,7 +46,22 @@ pipeline {
                 sh 'docker build -t java-devops-demo .'
             }
         }
-        stage('Depoloy') {
+        stage('Push') {
+             input {
+                 message "Push to Alicloud"
+                 ok "Yes"
+                 parameters {
+                     string(name: 'APP_VER', defaultValue: 'v1.0', description: 'Image Version')
+                 }
+             }
+            steps {
+                echo "Push Image"
+                sh "docker login -u ${ALICLOUD_SECRTE_USER} -p ${ALICLOUD_SECRTE_PSW} rai-hub-registry.ap-northeast-1.cr.aliyuncs.com"
+                sh "tag java-devops-demo rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
+                sh "push rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
+            }
+        }
+        stage('Depoloy-Staging') {
             steps {
                 echo "Deploy Artifact"
                 sh 'docker rm -f java-devops-demo'
@@ -54,7 +70,12 @@ pipeline {
         }
         stage('Report') {
             steps {
-                echo "Report Send Mail"
+                echo "Report REST API Send Mail"
+            }
+        }
+        stage('Depoloy-Prod') {
+            steps {
+                echo "Report REST API Send Mail"
             }
         }
     }
