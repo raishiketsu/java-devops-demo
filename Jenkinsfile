@@ -58,11 +58,15 @@ pipeline {
                 echo "Push Image"
                 script {
                     //groovy
-                    def where = "${DEPLOY_WHERE}"
+                    def  where = "${DEPLOY_WHERE}"
 
                     if (where == "Alibaba Cloud"){
                         echo "Not Set"
-
+                        withCredentials([usernamePassword(credentialsId: 'alicloud-docker-repo', passwordVariable: 'ali_pwd', usernameVariable: 'ali_user')]) {
+                            sh "docker login -u ${ali_user} -p ${ali_pwd} rai-hub-registry.ap-northeast-1.cr.aliyuncs.com"
+                        }
+                        sh "docker tag java-devops-demo rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
+                        sh "docker push rai-hub-registry.ap-northeast-1.cr.aliyuncs.com/rai-devops/java-devops-demo:${APP_VER}"
                     } else if (where == "AWS"){
                         echo "Not Set"
                     } else if (where == "Azure"){
