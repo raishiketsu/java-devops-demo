@@ -165,7 +165,7 @@ spec:
     app: stable-diffusion
   type: LoadBalancer
 ```
-注目するところはこちらのようにGPUのコンピューティングリソースとメモリを割り当てています。
+特に注目すべきは、GPUの計算リソースとメモリがこのように割り当てられている点です
 ```
           limits:
             aliyun.com/gpu-core.percentage: 25
