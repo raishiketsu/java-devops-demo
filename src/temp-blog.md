@@ -42,6 +42,9 @@ GPUタイプのVMにack.node.gpu.scheduleというラベルを追加すれば、
 2つ目の方法は、ACKのNodeに直接ラベルを追加することで、該当のVMにのみラベルが反映されます。同じクラスター内に通常のVMのNode、GPUタイプのVMのNode、バーチャルNodeが混在している場合や、単一のGPUタイプのVMのNodeにのみラベルを付ける場合は、この方法を使用します。
 
 今回は、2つ目の方法を使用します。
+ノードの管理画面で以下のラベルを追加します。
+Key：ack.node.gpu.schedule
+Value：core_mem
 
 ###### kubectl-inspect-cgpuツールのインストール
 CloudShellもしくはローカル環境で、kubeconfigを設定し、kubectlを実行できる環境で、以下のコマンドを実行し、kubectl-inspect-cgpuをインストールします。
