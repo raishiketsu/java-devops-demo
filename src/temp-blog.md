@@ -43,7 +43,9 @@ GPUタイプのVMにack.node.gpu.scheduleというラベルを追加すれば、
 
 今回は、2つ目の方法を使用します。
 ノードの管理画面で以下のラベルを追加します。
+
 Key：ack.node.gpu.schedule
+
 Value：core_mem
 
 ###### kubectl-inspect-cgpuツールのインストール
