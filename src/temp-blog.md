@@ -177,10 +177,14 @@ spec:
 
 
 ### Stable diffunsionの実行
-試しに、5.5GiBのGPUメモリをStable diffunsionに割り当てていますが、以下のエラーが出ています。
-実行するPromptはこちらです。
+```
 Prompt:masterpiece, best quality, high quality,ultra detailed,office building,
 NegativePrompt:EasyNegative,
+```
+
+上記のプロンプトを入力し、試しに、Stable diffunsionに5.5GiBのGPUメモリを割り当ててみましたが、以下のエラーが表示されています。
+
+
 ```
 RuntimeError: CUDA error: CUBLAS_STATUS_NOT_INITIALIZED when calling `cublasCreate(handle)`
 Time taken: 0.02sTorch active/reserved: 4087/4196 MiB, Sys VRAM: 5161/5166 MiB (99.9%)
