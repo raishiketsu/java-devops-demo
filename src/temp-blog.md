@@ -189,7 +189,9 @@ NegativePrompt:EasyNegative,
 RuntimeError: CUDA error: CUBLAS_STATUS_NOT_INITIALIZED when calling `cublasCreate(handle)`
 Time taken: 0.02sTorch active/reserved: 4087/4196 MiB, Sys VRAM: 5161/5166 MiB (99.9%)
 ```
-またYAMLファイルを編集して、より多めにGPUメモリを割り当ててあげます。
+さらにYAMLファイルを編集し、もっと大量のGPUメモリを割り当てます。
+
+すると画像生成できるようになります。
 ```
           limits:
             aliyun.com/gpu-core.percentage: 40
