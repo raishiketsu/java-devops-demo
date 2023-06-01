@@ -21,6 +21,7 @@ NvidiaのGPUが搭載されたPCにセットアップするのが一般的な利
 ![image](https://github.com/raishiketsu/sample-foodadvisor--confirm/assets/37066555/31ca110b-5cb4-42a8-8901-8b093d406dc6)
 ※AlibabaCloudの資料を引用
 
+### k8s環境にcGPUのセットアップ
 セットアップの手順
 ###### ACKクラスター作成
 まずはじめに、ACK Proエディションのクラスターを作成します。少なくとも1つのGPUタイプのVMをk8sのNodeとしてクラスターに追加します。
