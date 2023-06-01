@@ -49,7 +49,7 @@ Key：ack.node.gpu.schedule
 Value：core_mem
 
 ###### kubectl-inspect-cgpuツールのインストール
-CloudShellもしくはローカル環境で、kubeconfigを設定し、kubectlを実行できる環境で、以下のコマンドを実行し、kubectl-inspect-cgpuをインストールします。
+CloudShellもしくはローカル環境で、kubeconfigを設定し、kubectlが実行可能な環境にて、以下のコマンドを実行し、kubectl-inspect-cgpuをインストールします。
 ```
 Linux
 sudo wget http://aliacs-k8s-cn-beijing.oss-cn-beijing.aliyuncs.com/gpushare/kubectl-inspect-cgpu-linux -O /usr/local/bin/kubectl-inspect-cgpu
