@@ -61,31 +61,28 @@ kubectl inspect cgpu
 ![image](https://github.com/raishiketsu/sample-foodadvisor--confirm/assets/37066555/0fe7820a-942f-4d80-9b34-4df24b6e4762)
 
 ### Stable diffunsionをcGPU環境にインストール
-Stable dffusionはオープンソースのため、GPUなどのコンピューティングリソースがあれば実行できます。一方でオープンソースのため、誰かが環境を用意してくれることがなく、自分でセットアップする必要があります。
-本来Stable dffusion環境をセットアップするのが機械学習のエンジニアじゃないと難しいです。有識者がstable-diffusion-webuiという簡単に環境作成できるツールを開発してくれました。
+Stable dffusionはオープンソースのため、GPUなどのコンピューティングリソースがあれば実行できます。しかしオープンソースのため、誰かが環境を用意してくれるということはありません。自分でセットアップする必要があります。 通常、Stable dffusionの環境セットアップは機械学習のエンジニアが行うもので、難しいです。しかし、有識者がstable-diffusion-webuiというツールを開発し、環境の構築を容易にしました。
 
 https://github.com/AUTOMATIC1111/stable-diffusion-webui
 
-調べてみたら、k8s環境にstable-diffusion-webuiを簡単にデプロイするためのhelmもあります。
+さらに、k8s環境にstable-diffusion-webuiを簡単にデプロイするためのhelmも見つけました。
+
+しかし、このhelmを使用してデプロイを試みた際、いくつかの問題に遭遇しました。
+
+初めに、libglib2.0-0というライブラリが不足しているエラーが出ました。そのため、手動でこのライブラリをインストールし、自分のコンテナレジストリにプッシュしました。その後、エラーは解消しましたが、新たな問題が生じました。具体的には、Podが無限ループで再起動し続ける状況が発生しました。さらに、何のエラーログも出力されなかったため、対処のしようがありませんでした。
 
 https://github.com/amithkk/stable-diffusion-k8s
 
-最初はhelm chartがあれば簡単にデプロイできると思いきや、実際にこちらのhelmを使おうとするとハマるところがあります。
-helm ReleaseをACKのクラスターにデプロイしたら、libglib2.0-0というライブラリがないエラーが出ています。
-ローカルにhelm chartに書かれているImageをプルーして、コンテナを実行し、中に入ってlibglib2.0-0を手動でインストールして、
-再度commitして自分のコンテナレジストリにプッシュします。
-それでlibglib2.0-0がないエラーが解消されましたが、今度は何もエラーが出ない状態でPodが無限ループで再起動しています。
-ログに何も吐かれていないため、どうしようもないのでhelmでstable-diffusion-webuiをインストールするのを断念しました。
-githubを見たら最新のcommitは半年前のため、頻繁にメンテナンスしていないようです。
+アプローチを変更し、自分でstable-diffusion-webuiをコンテナ化しデプロイすることにしました。
+UbuntuのVMを使い、そのVM上にnvidiaのGPUドライバをインストールします。
+VM上とコンテナ内の両方でnvidiaのGPUを確認するコマンドが通ることを確認します。
 
-方向性を変えて、自分でstable-diffusion-webuiをコンテナ化してデプロイするようにしました。
-ubuntuのVMを使って、VM上にnvidiaのGPUドライブをインストールします。
-VM上とコンテナ内両方でnvidiaのGPUを確認するコマンドが通ることを確認します。
-VM上で確認　nvidia-smi
-コンテナ内で確認　docker run --rm --gpus device=0 nvidia/cuda:11.3.0-base-ubuntu20.04 nvidia-smi
---gpus device=0 こちらのパラメータでもしうまく通らない場合、デバイス番号が合わないためです。デバイス番号を意識せず簡易的に--gpus all で指定するのもできます。
+VM上での確認には「nvidia-smi」を使用します。
+そしてコンテナ内での確認には「docker run --rm --gpus device=0 nvidia/cuda:11.3.0-base-ubuntu20.04 nvidia-smi」を使用します。
+もし"--gpus device=0"というパラメータがうまく通らない場合、それはデバイス番号が一致していない可能性があります。そのためデバイス番号を気にせず、簡易的に"--gpus all"と指定することもできます。
 
-デプロイする前にkubectl inspect cgpuコマンドで確認すると、GPUがまだ配分されていないことを確認できます。
+デプロイする前に「kubectl inspect cgpu」コマンドで確認すれば、GPUがまだ割り当てられていないことが確認できます。
+
 ![image](https://github.com/raishiketsu/sample-foodadvisor--confirm/assets/37066555/0fe7820a-942f-4d80-9b34-4df24b6e4762)
 
 
