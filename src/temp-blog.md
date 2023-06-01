@@ -172,9 +172,7 @@ spec:
             aliyun.com/gpu-mem: 5.5
 ```
 
-コンテナを起動したあとに、Stable diffunsionのモデル約数GBをダウンロードする必要があります。
-ダウンロードが終わったらロードバランサー経由でアクセスできるようになります。
-実行している状態で、以下コマンドでGPU配分状況を確認します。
+コンテナを起動した後、Stable diffunsionのモデルを数GBダウンロードする必要があります。ダウンロードが完了すると、ロードバランサーを通じてアクセスが可能になります。実行中の状態で、以下のコマンドを用いてGPUの配分状況を確認します。
 ![image](https://github.com/raishiketsu/sample-foodadvisor--confirm/assets/37066555/6a434818-2520-4ccd-a30c-b5688316c97c)
 
 
