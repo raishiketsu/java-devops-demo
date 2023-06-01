@@ -15,6 +15,7 @@ Nvidia のGPUが付いているPCにセットアップするのが一般的な�
 そうすると機械学習の学習あるいは推論のプロセスで、1枚の低スペックなGPUだとスペックが足りない、一個上の高スペックなGPUならまたリソースが余ります。
 こちらのイラストに描いてある通り、１つのタスク実行で1枚のGPUリソースを使い切れない場合、無駄が発生してしまいます。
 この問題を解決するために、AlibabaCloudのGPUという仕組みがあります。
+cGPUを使う場合、複数の機械学習タスクを1枚のGPUで隔離した環境で効率よく同時実行できます。
 ![image](https://github.com/raishiketsu/sample-foodadvisor--confirm/assets/37066555/31ca110b-5cb4-42a8-8901-8b093d406dc6)
 ※AlibabaCloudの資料を引用
 
