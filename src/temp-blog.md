@@ -108,10 +108,7 @@ VOLUME /root/.cache
 CMD ["python3", "launch.py", "--listen"]
 
 ```
-GPUインスタンス上にコンテナが実行できることを確認します。
-docker run -it -p 80:7860 --gpus device=0 stable-diffusion:v1 /bin/bash
-問題なく実行できたら、イメージをコンテナレジストリにプッシュします。
-その後、以下のYAMLファイルでデプロイします。
+GPUインスタンス上でコンテナが問題なく実行できることを確認します。以下のコマンドを使用します。「docker run -it -p 80:7860 --gpus device=0 stable-diffusion:v1 /bin/bash」。無事に実行できたら、そのイメージをコンテナレジストリにプッシュします。そして、その後、以下のYAMLファイルを使ってデプロイを行います。
 
 ```
 apiVersion: apps/v1
