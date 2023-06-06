@@ -79,7 +79,9 @@ UbuntuのVMを使い、そのVM上にnvidiaのGPUドライバをインストー�
 VM上とコンテナ内の両方でnvidiaのGPUを確認するコマンドが通ることを確認します。
 
 VM上での確認には「nvidia-smi」を使用します。
-そしてコンテナ内での確認には「docker run --rm --gpus device=0 nvidia/cuda:11.3.0-base-ubuntu20.04 nvidia-smi」を使用します。
+そしてコンテナ内での確認には
+「docker run --rm --gpus device=0 nvidia/cuda:11.3.0-base-ubuntu20.04 nvidia-smi」
+を使用します。
 もし"--gpus device=0"というパラメータがうまく通らない場合、それはデバイス番号が一致していない可能性があります。そのためデバイス番号を気にせず、簡易的に"--gpus all"と指定することもできます。
 
 デプロイする前に「kubectl inspect cgpu」コマンドで確認すれば、GPUがまだ割り当てられていないことが確認できます。
